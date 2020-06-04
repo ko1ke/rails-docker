@@ -14,19 +14,31 @@ services:
     depends_on:
       - db
     extends:
-      file: ./docker/mysql/password.yml
+      # file: ./docker/mysql/password.yml
+      file: ./docker/postgres/password.yml
       service: password
 
+  # db:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/mysql/Dockerfile
+  #   ports:
+  #     - '3306:3306'
+  #   volumes:
+  #     - db_data:/var/lib/mysql
+  #   extends:
+  #     file: ./docker/mysql/password.yml
+  #     service: password
   db:
     build:
       context: .
-      dockerfile: ./docker/mysql/Dockerfile
+      dockerfile: ./docker/postgres/Dockerfile
     ports:
-      - '3306:3306'
+      - '5432:5432'
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/postgresql
     extends:
-      file: ./docker/mysql/password.yml
+      file: ./docker/postgres/password.yml
       service: password
 
   nginx:
